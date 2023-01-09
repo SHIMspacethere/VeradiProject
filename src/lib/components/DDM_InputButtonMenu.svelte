@@ -1,19 +1,5 @@
 <script>
-  import {
-    Alert,
-    Button,
-    Container,
-    Col,
-    Row,
-    Card,
-    CardBody,
-    CardHeader,
-    CardTitle,
-    Input,
-    Form,
-    FormGroup,
-    Image,
-  } from "sveltestrap";
+	import DDM_InputButtonUi from './DDM_InputButtonUi.svelte';
 
   import img_none from "$lib/static/img/veradiBioProject/genogram/none.png";
   import img_unknown from "$lib/static/img/veradiBioProject/genogram/unknown.png";
@@ -29,19 +15,27 @@
   import img_manA from "$lib/static/img/veradiBioProject/genogram/manA.png";
   import img_woman from "$lib/static/img/veradiBioProject/genogram/woman.png";
   import img_womanA from "$lib/static/img/veradiBioProject/genogram/womanA.png";
+  import { prevent_default } from 'svelte/internal';
 
   export let buttonX = 7;
   export let buttonY = 10;
   export let buttonId = [];
-  export const phaseMode = [];
+  export let inputResult = [];
+
+  {
+    for (let i = 0; i < buttonX; i++) {
+      buttonId.push([]);
+      for (let j = 0; j < buttonY; j++) {
+        buttonId[i].push(0);
+      }
+    }
+  };
 
   let axisX = 0;
   let axisY = 0;
   let debugMode = false;
   let uiMode = false;
-  let result;
-
-  let onClose = () => {};
+  let temp;
 
   const VP_DDM_INPUTCHECKS = [
     {
@@ -95,57 +89,41 @@
     },
   ];
 
-  //$: bs[10][10] = new ButtonState()
-  //class ButtonState {
-  //  constructor{
-  //    this.x = x;
-  //    this.y = y;
-  //    this.image = img_block;
-  //  }
-  //  set x(num) {
-  //    this._x = num;
-  //  }
-  //  set y(num) {
-  //    this._y = num;
-  //  }
-  //  set img(image) {
-  //    this._image = image;
-  //  }
-  //  get x(num) {
-  //    return this._x;
-  //  }
-  //  get y(num) {
-  //    return this._y;
-  //  }
-  //  get img(image) {
-  //    return this_image;
-  //  }
-  //}
-
   function debugToggle() {
     if (debugMode) debugMode = false;
     else debugMode = true;
     console.log("debug : " + debugMode);
   }
 
-  function onUiToggle() {
+  function onPopup(x, y) {
+    (axisX = x), (axisY = y);
+    uiMode = true;
+  };
+
+  function onClose() {
+    uiMode = false;
+  }
+
+  function onClick() {
     if (uiMode == true) {
       uiMode = false;
-      if (result != null) {
-        buttonId[axisX][axisY] = result;
-        //updateImage();
+      if (temp != null) {
+        buttonId[axisX][axisY] = temp;
+        updateImage();
         if (debugMode)
-          console.log("(" + axisX + ", " + axisY + ") => " + result);
+          console.log("(" + axisX + ", " + axisY + ") => " + temp);
       }
-    } else uiMode = true;
+    }
   }
 
-  function onClick(x, y) {
-    (axisX = x), (axisY = y);
-    onUiToggle();
+  function updateImage() {
+    document.getElementById("img["+axisX+"]["+axisY+"]").src = temp;
   }
-
 </script>
+
+{#if uiMode==true}
+  <DDM_InputButtonUi maxX={buttonX} maxY={buttonY} {axisX} {axisY} bind:temp={temp} {onClose} {onClick} />
+{/if}
 
 <container>
   <button on:click={() => debugToggle()} class="tw-pb-2">
@@ -157,13 +135,13 @@
         {#each Array(buttonY) as _, intY}
           <button
             id="button[{intX}][{intY}]"
-            on:click={() => onClick(intX, intY)}
+            on:click|preventDefault={()=>onPopup(intX, intY)}
             class="tw-flex tw-px-0"
           >
             <img
               id="img[{intX}][{intY}]"
-              src={VP_DDM_INPUTCHECKS[0].img}
-              alt="button"
+              src={VP_DDM_INPUTCHECKS[buttonId[intX][intY]].img}
+              alt="button[{intX}][{intY}]"
             />
           </button>
         {/each}
@@ -172,7 +150,7 @@
         {#each Array(buttonY) as _, intY}
           {#if debugMode}
             <div>
-              {'(' + intX + ", " + intY + ')'}
+              {"(" + intX + ", " + intY + ")"}
             </div>
           {/if}
         {/each}
@@ -181,35 +159,6 @@
   </div>
 </container>
 
-<!-----
-<Container>
-	<button on:click={() => debugToggle()} class="tw-pb-2">
-		debugMode : {debugMode}
-	</button>
-	<Col lg="8">
-		{#each Array(buttonY) as _, intX}
-			<Row>
-				<div class="tw-flex">
-					{#each Array(buttonX) as _, intY}
-						<button
-							id="button[{intX}][{intY}]"
-							on:click={() => onClick(intX, intY)}
-							class="tw-flex tw-px-0"
-						>
-							<div class="">
-								<Image id="img[{intX}][{intY}]" src={VP_DDM_INPUTCHECKS[buttonId[intX][intY]].img} style="width:100%;" />
-								{#if debugMode}
-									{intX + ', ' + intY}
-								{/if}
-							</div>
-						</button>
-					{/each}
-				</div>
-			</Row>
-		{/each}
-	</Col>
-</Container>
----->
 <style>
   button {
     display: flex;
