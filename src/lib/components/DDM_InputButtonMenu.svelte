@@ -122,9 +122,7 @@
   }
 
   function compile(l) {
-    console.log(l);
     inputResult = buttonInputCalc(l);
-    console.log(inputResult);
   }
 </script>
 
