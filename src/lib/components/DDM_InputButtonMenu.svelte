@@ -1,5 +1,6 @@
 <script>
 	import DDM_InputButtonUi from './DDM_InputButtonUi.svelte';
+  import buttonInputCalc from './DDM_ButtonInputCalc';
 
   import img_none from "$lib/static/img/veradiBioProject/genogram/none.png";
   import img_unknown from "$lib/static/img/veradiBioProject/genogram/unknown.png";
@@ -19,14 +20,14 @@
 
   export let buttonX = 7;
   export let buttonY = 10;
-  export let buttonId = [];
+  export let inputButtonId = [];
   export let inputResult = [];
 
   {
     for (let i = 0; i < buttonX; i++) {
-      buttonId.push([]);
+      inputButtonId.push([]);
       for (let j = 0; j < buttonY; j++) {
-        buttonId[i].push(0);
+        inputButtonId[i].push(0);
       }
     }
   };
@@ -108,7 +109,7 @@
     if (uiMode == true) {
       uiMode = false;
       if (temp != null) {
-        buttonId[axisX][axisY] = temp;
+        inputButtonId[axisX][axisY] = temp;
         updateImage();
         if (debugMode)
           console.log("(" + axisX + ", " + axisY + ") => " + temp);
@@ -118,6 +119,12 @@
 
   function updateImage() {
     document.getElementById("img["+axisX+"]["+axisY+"]").src = temp;
+  }
+
+  function compile(l) {
+    console.log(l);
+    inputResult = buttonInputCalc(l);
+    console.log(inputResult);
   }
 </script>
 
@@ -140,7 +147,7 @@
           >
             <img
               id="img[{intX}][{intY}]"
-              src={VP_DDM_INPUTCHECKS[buttonId[intX][intY]].img}
+              src={VP_DDM_INPUTCHECKS[inputButtonId[intX][intY]].img}
               alt="button[{intX}][{intY}]"
             />
           </button>
@@ -157,7 +164,12 @@
       </div>
     {/each}
   </div>
+  <div class="tw-pt-5 tw-content-end tw-text-end tw-justify-end">
+    <button class="tw-text-2xl tw-bg-orange-500"
+    on:click|preventDefault={()=>{compile(inputButtonId)}}>Compile</button>
+  </div>
 </container>
+
 
 <style>
   button {

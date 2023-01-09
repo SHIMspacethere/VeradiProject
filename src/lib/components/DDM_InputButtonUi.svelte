@@ -85,7 +85,7 @@
       buttonE.toDisabled();
       buttonR.toDisabled();
     }
-    if (axisX == maxY - 1) {
+    if (axisX == maxX - 1) {
       buttonA.toDisabled();
       buttonS.toDisabled();
       buttonD.toDisabled();
@@ -109,7 +109,7 @@
       buttonZ.toDisabled();
       buttonC.toDisabled();
     }
-    if (axisY == maxX - 1) {
+    if (axisY == maxY - 1) {
       buttonA.toDisabled();
       buttonS.toDisabled();
       buttonD.toDisabled();
