@@ -1,6 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
-  import { InputButtonSet } from "./DDM_Class.js";
+  import { InputButtonSet, VP_DDM_INPUTCHECKS } from "./DDM_Info.js";
 
   export let onClose = () => {};
   export let onClick = () => {};
@@ -11,21 +11,6 @@
   export let maxY = 0;
   export let bgColor = "#bbbbdd";
   export let buttonImage = "";
-
-  import img_none from "$lib/static/img/veradiBioProject/genogram/none.png";
-  import img_unknown from "$lib/static/img/veradiBioProject/genogram/unknown.png";
-  import img_block from "$lib/static/img/veradiBioProject/genogram/block.png";
-  import img_blockCenterDown2 from "$lib/static/img/veradiBioProject/genogram/blockCenterDown2.png";
-  import img_blockCenterDown3 from "$lib/static/img/veradiBioProject/genogram/blockCenterDown3.png";
-  import img_blockCenterUp from "$lib/static/img/veradiBioProject/genogram/blockCenterUp.png";
-  import img_blockLeftDown from "$lib/static/img/veradiBioProject/genogram/blockLeftDown.png";
-  import img_blockRightDown from "$lib/static/img/veradiBioProject/genogram/blockRightDown.png";
-  import img_blockX from "$lib/static/img/veradiBioProject/genogram/blockX.png";
-  import img_blockY from "$lib/static/img/veradiBioProject/genogram/blockY.png";
-  import img_man from "$lib/static/img/veradiBioProject/genogram/man.png";
-  import img_manA from "$lib/static/img/veradiBioProject/genogram/manA.png";
-  import img_woman from "$lib/static/img/veradiBioProject/genogram/woman.png";
-  import img_womanA from "$lib/static/img/veradiBioProject/genogram/womanA.png";
 
   function onKeyDown(e) {
     if (e.keyCode == 27) onClose();
@@ -50,18 +35,19 @@
     onClose();
   }
 
-  let buttonQ = new InputButtonSet(81, img_block, 0);
-  let buttonW = new InputButtonSet(87, img_man, 1);
-  let buttonE = new InputButtonSet(69, img_woman, 2);
-  let buttonR = new InputButtonSet(82, img_unknown, 3);
-  let buttonA = new InputButtonSet(65, img_blockCenterUp, 4);
-  let buttonS = new InputButtonSet(83, img_blockX, 5);
-  let buttonD = new InputButtonSet(68, img_blockCenterDown2, 6);
-  let buttonF = new InputButtonSet(70, img_blockCenterDown3, 7);
-  let buttonZ = new InputButtonSet(90, img_blockY, 8);
-  let buttonX = new InputButtonSet(88, img_blockLeftDown, 9);
-  let buttonC = new InputButtonSet(67, img_blockRightDown, 10);
-  let buttonV = new InputButtonSet(86, img_none, "-");
+  let buttonQ = new InputButtonSet(81, VP_DDM_INPUTCHECKS[0].img, 0);
+  let buttonW = new InputButtonSet(87, VP_DDM_INPUTCHECKS[1].img, 1);
+  let buttonE = new InputButtonSet(69, VP_DDM_INPUTCHECKS[2].img, 2);
+  let buttonR = new InputButtonSet(82, VP_DDM_INPUTCHECKS[3].img, 3);
+  let buttonA = new InputButtonSet(65, VP_DDM_INPUTCHECKS[4].img, 4);
+  let buttonS = new InputButtonSet(83, VP_DDM_INPUTCHECKS[5].img, 5);
+  let buttonD = new InputButtonSet(68, VP_DDM_INPUTCHECKS[6].img, 6);
+  let buttonF = new InputButtonSet(70, VP_DDM_INPUTCHECKS[7].img, 7);
+  let buttonZ = new InputButtonSet(90, VP_DDM_INPUTCHECKS[8].img, 8);
+  let buttonX = new InputButtonSet(88, VP_DDM_INPUTCHECKS[9].img, 9);
+  let buttonC = new InputButtonSet(67, VP_DDM_INPUTCHECKS[10].img, 10);
+  let buttonV = new InputButtonSet(86, VP_DDM_INPUTCHECKS[11].img, "-");
+  
   const buttonList = [];
   buttonList.push(
     buttonQ,

@@ -67,3 +67,55 @@ export class InputButtonSet {
     this._value = "-";
   }
 }
+
+export const VP_DDM_INPUTCHECKS = [
+  {
+    id: 0,
+    img: img_block,
+    img2: img_none,
+  },
+  {
+    id: 1,
+    img: img_man,
+  },
+  {
+    id: 2,
+    img: img_woman,
+  },
+  {
+    id: 3,
+    img: img_unknown,
+  },
+  {
+    id: 4,
+    img: img_blockCenterUp,
+  },
+  {
+    id: 5,
+    img: img_blockX,
+  },
+  {
+    id: 6,
+    img: img_blockCenterDown2,
+  },
+  {
+    id: 7,
+    img: img_blockCenterDown3,
+  },
+  {
+    id: 8,
+    img: img_blockY,
+  },
+  {
+    id: 9,
+    img: img_blockLeftDown,
+  },
+  {
+    id: 10,
+    img: img_blockRightDown,
+  },
+  {
+    id: 11,
+    img: img_none,
+  },
+];
