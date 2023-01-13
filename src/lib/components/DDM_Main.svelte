@@ -6,11 +6,24 @@
 
   function modToggle(n) {
     modNum = n;
+    console.log(inputButtonId);
   }
 
-  let inputResult;
-  let inputButtonId;
-  let tempButtonId;
+  let inputResult = [];
+  let inputButtonId = [];
+  let heredity = [[], []];
+  let buttonX = 7;
+  let buttonY = 7;
+
+  {
+    for (let i = 0; i < buttonX; i++) {
+      inputButtonId.push([]);
+      for (let j = 0; j < buttonY; j++) {
+        inputButtonId[i].push(0);
+      }
+    }
+  };
+  
 </script>
 
 <container class="tw-flex tw-justify-around tw-mb-4">
@@ -41,7 +54,18 @@
 </container>
 
 {#if modNum == 1}
-  <DDM_InputButtonMenu bind:inputResult bind:inputButtonId />
+  <DDM_InputButtonMenu
+    bind:inputResult
+    bind:inputButtonId
+    bind:buttonX
+    bind:buttonY
+  />
 {:else if modNum == 2}
-  <DDM_DefaultSettings />
+  <DDM_DefaultSettings
+    bind:inputResult
+    bind:inputButtonId
+    bind:buttonX
+    bind:buttonY
+    bind:heredity
+  />
 {/if}

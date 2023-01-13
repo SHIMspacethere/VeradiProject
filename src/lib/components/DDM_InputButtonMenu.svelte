@@ -8,14 +8,7 @@
   export let inputButtonId = [];
   export let inputResult = [];
 
-  {
-    for (let i = 0; i < buttonX; i++) {
-      inputButtonId.push([]);
-      for (let j = 0; j < buttonY; j++) {
-        inputButtonId[i].push(0);
-      }
-    }
-  };
+
 
   let axisX = 0;
   let axisY = 0;

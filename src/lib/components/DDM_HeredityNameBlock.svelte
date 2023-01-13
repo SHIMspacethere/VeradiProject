@@ -1,7 +1,7 @@
 <script>
   export let tempArray = [[]];
   let tempHeredityName = "(가)";
-  let selectedNameIndex = 0;
+  let selectedNameIndex = null;
   let _classHeredityName = [];
   export let _class = "";
 
@@ -21,7 +21,7 @@
   }
 
   function removeHeredityName() {
-    if (tempArray[0].length == 0) return;
+    if (tempArray[0].length == 0 || selectedNameIndex == null) return;
     tempArray[0].splice(selectedNameIndex, 1);
     tempArray[1].splice(selectedNameIndex, 1);
     tempArray = tempArray;
@@ -44,8 +44,8 @@
 </script>
 
 <div class={_class}>
-  <div class="tw-text-2xl">유전형질 - 이름</div>
-  <div>
+  <div class="tw-text-3xl">유전형질 - 이름</div>
+  <div class="tw-text-2xl tw-m-2">
     <input
       class="tw-w-24"
       type="text"
@@ -70,7 +70,7 @@
       }}>제거</button
     >
   </div>
-  <div>
+  <div class="tw-text-2xl">
     {#each tempArray[0] as item, i}
       <button
         class="tw-block {_classHeredityName[i]}"

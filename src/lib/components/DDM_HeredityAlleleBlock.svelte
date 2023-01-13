@@ -4,8 +4,17 @@
   let selectedNameIndex = null;
   let selectedAlleleIndex = null;
   let _classHeredityName = [];
-  let _classHeredityAllele = [[], [], []];
+  let _classHeredityAllele = [];
   export let _class = "";
+
+  { // Array Set
+    for(let i=0; i<tempArray[1].length; i++) {
+      _classHeredityAllele.push([]);
+      for(let j=0; j<tempArray[1][i].length; j++) {
+        _classHeredityAllele[i].push("");
+      }
+    }
+  }
 
   function addHeredityAllele(t) {
     if (selectedNameIndex == null) return;
@@ -15,8 +24,10 @@
         return;
       }
     }
+    while(tempArray[1].length > _classHeredityAllele.length) {
+      _classHeredityAllele.push([]);
+    } 
     tempArray[1][selectedNameIndex].push(t);
-    // _classHeredityAllele[count] = "tw-text-red-500";
     tempArray = tempArray;
     selectedAlleleIndex = tempArray[1][selectedNameIndex].length - 1;
     selectAllele(selectedNameIndex, selectedAlleleIndex);
@@ -45,7 +56,6 @@
   }
 
   function selectAllele(n, a) {
-    console.log(a);
     for (let i = 0; i < tempArray[1].length; i++) {
       for (let j = 0; j < tempArray[1][i].length; j++) {
         _classHeredityAllele[i][j] = "tw-text-black";
@@ -70,8 +80,8 @@
 </script>
 
 <div class={_class}>
-  <div class="tw-text-2xl">유전형질 - 대립유전자</div>
-  <div>
+  <div class="tw-text-3xl">유전형질 - 대립유전자</div>
+  <div class="tw-text-2xl tw-m-2">
     <input
       class="tw-w-24"
       type="text"
@@ -96,7 +106,7 @@
       }}>제거</button
     >
   </div>
-  <div>
+  <div class="tw-text-2xl">
     {#each tempArray[0] as item, i}
       <div class="tw-flex">
         <button

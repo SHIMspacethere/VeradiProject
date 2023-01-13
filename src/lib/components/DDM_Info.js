@@ -72,50 +72,61 @@ export const VP_DDM_INPUTCHECKS = [
   {
     id: 0,
     img: img_block,
-    img2: img_none,
+    img2: img_none
   },
   {
     id: 1,
     img: img_man,
+    img2: img_man
   },
   {
     id: 2,
     img: img_woman,
+    img2: img_woman
   },
   {
     id: 3,
     img: img_unknown,
+    img2: img_unknown
   },
   {
     id: 4,
     img: img_blockCenterUp,
+    img2: img_blockCenterUp
   },
   {
     id: 5,
     img: img_blockX,
+    img2: img_blockX
   },
   {
     id: 6,
     img: img_blockCenterDown2,
+    img2: img_blockCenterDown2
   },
   {
     id: 7,
     img: img_blockCenterDown3,
+    img2: img_blockCenterDown3
   },
   {
     id: 8,
     img: img_blockY,
+    img2: img_blockY
   },
   {
     id: 9,
     img: img_blockLeftDown,
+    img2: img_blockLeftDown
   },
   {
     id: 10,
     img: img_blockRightDown,
+    img2: img_blockRightDown
   },
   {
     id: 11,
     img: img_none,
+    img2: img_none
   },
 ];
