@@ -1,5 +1,6 @@
 <script>
-  import DDM_DefaultSettings from "./DDM_DefaultSettings.svelte";
+  import DDM_Condition from "$lib/components/DDM_ConditionMenu.svelte";
+  import DDM_DefaultSettings from "$lib/components/DDM_DefaultSettings.svelte";
   import DDM_InputButtonMenu from "$lib/components/DDM_InputButtonMenu.svelte";
 
   export let modNum = 1;
@@ -22,8 +23,7 @@
         inputButtonId[i].push(0);
       }
     }
-  };
-  
+  }
 </script>
 
 <container class="tw-flex tw-justify-around tw-mb-4">
@@ -62,6 +62,14 @@
   />
 {:else if modNum == 2}
   <DDM_DefaultSettings
+    bind:inputResult
+    bind:inputButtonId
+    bind:buttonX
+    bind:buttonY
+    bind:heredity
+  />
+{:else if modNum == 3}
+  <DDM_Condition
     bind:inputResult
     bind:inputButtonId
     bind:buttonX
