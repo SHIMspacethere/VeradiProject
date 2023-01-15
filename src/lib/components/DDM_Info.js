@@ -77,12 +77,14 @@ export const VP_DDM_INPUTCHECKS = [
   {
     id: 1,
     img: img_man,
-    img2: img_man
+    img2: img_man,
+    img3: img_manA
   },
   {
     id: 2,
     img: img_woman,
-    img2: img_woman
+    img2: img_woman,
+    img3: img_womanA
   },
   {
     id: 3,

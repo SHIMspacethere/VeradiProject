@@ -7,7 +7,7 @@
 
   function modToggle(n) {
     modNum = n;
-    console.log(inputButtonId);
+    console.log(heredity);
   }
 
   let inputResult = [];
