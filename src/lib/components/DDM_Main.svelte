@@ -13,7 +13,7 @@
   let inputButtonId = [];
   let heredity = [[], []];
   let buttonX = 7;
-  let buttonY = 7;
+  let buttonY = 10;
 
   {
     for (let i = 0; i < buttonX; i++) {

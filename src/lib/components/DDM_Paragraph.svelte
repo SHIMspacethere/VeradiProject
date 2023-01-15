@@ -4,7 +4,7 @@
   export let inputButtonId;
 </script>
 
-<container class="tw-bg-white tw-p-4 tw-overflow-hidden">
+<container class="tw-p-4 tw-overflow-hidden">
   1. 다음은 어떤 집안의 유전 형질 {tempArray[0][0]}~{tempArray[0][
     tempArray[0].length - 1
   ]}에 대한 자료이다.
