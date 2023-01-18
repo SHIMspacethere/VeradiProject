@@ -7,14 +7,19 @@
 
   function modToggle(n) {
     modNum = n;
-    console.log(heredity);
   }
 
   let inputResult = [];
   let inputButtonId = [];
-  let heredity = [[], []];
+  let heredity = [[], [], []];
   let buttonX = 7;
   let buttonY = 10;
+
+  function showAll() {
+    console.log(inputResult);
+    console.log(inputButtonId);
+    console.log(heredity);
+  }
 
   {
     for (let i = 0; i < buttonX; i++) {
@@ -26,6 +31,9 @@
   }
 </script>
 
+<button on:click={() => showAll()}>
+  Show All!
+</button>
 <container class="tw-flex tw-justify-around tw-mb-4">
   <button
     on:click={() => modToggle(1)}

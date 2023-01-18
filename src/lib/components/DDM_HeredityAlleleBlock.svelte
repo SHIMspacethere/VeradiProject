@@ -8,9 +8,9 @@
   export let _class = "";
 
   { // Array Set
-    for(let i=0; i<tempArray[1].length; i++) {
+    for(let i=0; i<tempArray[2].length; i++) {
       _classHeredityAllele.push([]);
-      for(let j=0; j<tempArray[1][i].length; j++) {
+      for(let j=0; j<tempArray[2][i].length; j++) {
         _classHeredityAllele[i].push("");
       }
     }
@@ -18,32 +18,32 @@
 
   function addHeredityAllele(t) {
     if (selectedNameIndex == null) return;
-    for (let i = 0; i < tempArray[1].length; i++) {
-      if (t == "" || tempArray[1][i] == t) {
+    for (let i = 0; i < tempArray[2].length; i++) {
+      if (t == "" || tempArray[2][i] == t) {
         console.log("Error : duplicated!");
         return;
       }
     }
-    while(tempArray[1].length > _classHeredityAllele.length) {
+    while(tempArray[2].length > _classHeredityAllele.length) {
       _classHeredityAllele.push([]);
     } 
-    tempArray[1][selectedNameIndex].push(t);
+    tempArray[2][selectedNameIndex].push(t);
     tempArray = tempArray;
-    selectedAlleleIndex = tempArray[1][selectedNameIndex].length - 1;
+    selectedAlleleIndex = tempArray[2][selectedNameIndex].length - 1;
     selectAllele(selectedNameIndex, selectedAlleleIndex);
     tempHeredityAllele = "";
   }
 
   function removeHeredityAllele() {
     if (
-      tempArray[1][selectedNameIndex].length == 0 ||
+      tempArray[2][selectedNameIndex].length == 0 ||
       selectedNameIndex == null ||
       selectedAlleleIndex == null
     )
       return;
-    tempArray[1][selectedNameIndex].splice(selectedAlleleIndex, 1);
+    tempArray[2][selectedNameIndex].splice(selectedAlleleIndex, 1);
     tempArray = tempArray;
-    selectedAlleleIndex = tempArray[1][selectedNameIndex].length - 1;
+    selectedAlleleIndex = tempArray[2][selectedNameIndex].length - 1;
     selectAllele(selectedNameIndex, selectedAlleleIndex);
   }
 
@@ -56,8 +56,8 @@
   }
 
   function selectAllele(n, a) {
-    for (let i = 0; i < tempArray[1].length; i++) {
-      for (let j = 0; j < tempArray[1][i].length; j++) {
+    for (let i = 0; i < tempArray[2].length; i++) {
+      for (let j = 0; j < tempArray[2][i].length; j++) {
         _classHeredityAllele[i][j] = "tw-text-black";
       }
     }
@@ -74,7 +74,7 @@
       selectedAlleleIndex == null
     )
       return;
-    tempArray[1][selectedNameIndex][selectedAlleleIndex] = tempHeredityAllele;
+    tempArray[2][selectedNameIndex][selectedAlleleIndex] = tempHeredityAllele;
     tempArray = tempArray;
   }
 </script>
@@ -118,7 +118,7 @@
           {i + 1}. {item} - &nbsp
         </button>
 
-        {#each tempArray[1][i] as gene, j}
+        {#each tempArray[2][i] as gene, j}
           <button
             class="tw-block {_classHeredityAllele[i][j]}"
             on:click={() => {

@@ -15,11 +15,14 @@
       }
     }
     tempArray[0].push(t);
-    tempArray[1].push([]);
+    tempArray[1].push("?");
+    tempArray[2].push([]);
     tempArray.push([]);
+
     for (let i = 0; i < inputResult[0].length; i++) {
       tempArray[tempArray.length-1].push(1);
     }
+    console.log(2);
     tempArray = tempArray;
     selectHeredityName(count);
     tempHeredityName = "";
@@ -29,7 +32,8 @@
     if (tempArray[0].length == 0 || selectedNameIndex == null) return;
     tempArray[0].splice(selectedNameIndex, 1);
     tempArray[1].splice(selectedNameIndex, 1);
-    tempArray.splice(selectedNameIndex+2, 1);
+    tempArray[2].splice(selectedNameIndex, 1);
+    tempArray.splice(selectedNameIndex+3, 1);
     tempArray = tempArray;
     selectHeredityName(tempArray[0].length);
   }

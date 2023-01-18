@@ -9,10 +9,6 @@
   export let buttonX;
   export let buttonY;
 
-  function debug() {
-    console.log(heredity);
-  }
-
 </script>
 
 

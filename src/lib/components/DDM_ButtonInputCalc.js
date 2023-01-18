@@ -89,8 +89,8 @@ function buttonInputCalc(l) {
               c++;
             }
           } else if (list[i + 1][j] == 8) {
-            if (list[i + 2][j + c][0] >= 1 && list[i + 2][j + c][0] <= 3)
-              temp.push(list[i + 2][j + c][1]);
+            if (list[i + 2][j][0] >= 1 && list[i + 2][j][0] <= 3)
+              temp.push(list[i + 2][j][1]);
           } else {
             break;
           }

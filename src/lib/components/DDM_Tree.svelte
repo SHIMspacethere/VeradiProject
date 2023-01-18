@@ -5,12 +5,15 @@
   export let inputButtonId;
   export let heredity;
   let _heredityClass = [];
+  let _heredityTrait = [];
   let selectedHeredity = null;
-  let count=0;
-  let person=[];
+  let count = 1;
 
+  const heredityTrait = ["?", "우열", "다인자"];
   {
-
+    while (heredity[0].length > heredityTrait.length) {
+      _heredityTrait.push([]);
+    }
   }
 
   function clickHeredity(i) {
@@ -23,6 +26,17 @@
     _heredityClass[i] = "tw-text-red-500";
     selectedHeredity = i;
     updateAll();
+    updateTrait(i);
+    heredity=heredity;
+  }
+
+  function clickTrait(i) {
+    for (let j = 0; j < heredityTrait.length; j++) {
+      _heredityTrait[j] = "tw-text-black";
+    }
+    _heredityTrait[i] = "tw-text-red-500";
+    heredity[1][selectedHeredity] = heredityTrait[i];
+    heredity=heredity;
   }
 
   function updateExpression(i, j) {
@@ -33,17 +47,23 @@
       if (a > inputResult[0].length) return;
       a++;
     }
-
-    if (heredity[selectedHeredity + 2][a] == 1) {
-      heredity[selectedHeredity + 2][a] = 2
+    if (heredity[selectedHeredity + 3][a] == 1) {
+      heredity[selectedHeredity + 3][a] = 2;
       updateImage(i, j, 2);
-    }
-    else if (heredity[selectedHeredity + 2][a] == 2) {
-      heredity[selectedHeredity + 2][a] = 1
+    } else if (heredity[selectedHeredity + 3][a] == 2) {
+      heredity[selectedHeredity + 3][a] = 1;
       updateImage(i, j, 1);
+    } else {
     }
-    else {}
-    console.log(heredity[selectedHeredity+2])
+    console.log(heredity[selectedHeredity + 2]);
+  }
+
+  function updateTrait(i) {
+    for (let j = 0; j < heredityTrait.length; j++) {
+      _heredityTrait[j] = "tw-text-black";
+      if (heredity[1][i] == heredityTrait[j])
+        _heredityTrait[j] = "tw-text-red-500";
+    }
   }
 
   function updateImage(i, j, e) {
@@ -58,27 +78,44 @@
   }
 
   function updateAll() {
-
     for (let a = 0; a < inputResult[0].length; a++) {
       updateImage(
         inputResult[0][a][0],
         inputResult[0][a][1],
-        heredity[selectedHeredity + 2][a]
+        heredity[selectedHeredity + 3][a]
       );
     }
+  }
+
+  function countPerson() {
+    return count++;
   }
 </script>
 
 <container class="tw-block tw-mx-3">
   <div class="tw-text-2xl tw-px-2">
-    {#each heredity[0] as item, i}
-      <button
-        class="tw-px-2 {_heredityClass[i]}"
-        on:click={() => clickHeredity(i)}
-      >
-        {item}
-      </button>
-    {/each}
+    <div>
+      {#each heredity[0] as item, i}
+        <button
+          class="tw-px-2 {_heredityClass[i]}"
+          on:click={() => clickHeredity(i)}
+        >
+          {item}
+        </button>
+      {/each}
+    </div>
+    {#if selectedHeredity != null}
+      <div>
+        {#each heredityTrait as item, i}
+          <button
+            class="tw-px-2 {_heredityTrait[i]}"
+            on:click={() => clickTrait(i)}
+          >
+            {item}
+          </button>
+        {/each}
+      </div>
+    {/if}
   </div>
   <div class="tw-block tw-p-5">
     {#each Array(inputButtonId.length) as _, intX}
@@ -96,9 +133,9 @@
                 id="buttonImg[{intX}][{intY}]"
                 src={VP_DDM_INPUTCHECKS[inputButtonId[intX][intY]].img2}
                 alt="button[{intX}][{intY}]"
-              >
+              />
               <div class="tw-absolute tw-justify-center tw-text-center">
-                {1}
+                {countPerson()}
               </div>
             </button>
           {:else}
