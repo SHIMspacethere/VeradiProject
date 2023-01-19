@@ -5,7 +5,8 @@
   export let inputButtonId;
   export let treeStyle;
   export function clickTree() {}
-  
+  export let condition;
+
   let isHidden = false;
   
   function SwitchIsHidden() {

@@ -1,5 +1,6 @@
 <script>
-  import DDM_Condition from "$lib/components/DDM_ConditionMenu.svelte";
+	import DDM_CompileMenu from './DDM_CompileMenu.svelte';
+  import DDM_ConditionMenu from "$lib/components/DDM_ConditionMenu.svelte";
   import DDM_DefaultSettings from "$lib/components/DDM_DefaultSettings.svelte";
   import DDM_InputButtonMenu from "$lib/components/DDM_InputButtonMenu.svelte";
 
@@ -12,13 +13,37 @@
   let inputResult = [];
   let inputButtonId = [];
   let heredity = [[], [], []];
+  let compileResult = [];
   let buttonX = 7;
   let buttonY = 10;
+  let condition= [];
 
   function showAll() {
     console.log(inputResult);
     console.log(inputButtonId);
     console.log(heredity);
+  }
+
+  function load() {
+    inputResult = [
+      [
+        [0, 0, 1],
+        [0, 2, 2],
+        [2, 0, 2],
+        [2, 2, 1],
+      ],
+      [[0, 1, 2, 3]],
+    ];
+    inputButtonId = [
+      [1, 4, 2, 0, 0, 0, 0, 0, 0, 0],
+      [9, 6, 10, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+    heredity = [["(가)"], ["우열"], [["A", "a"]], [1, 2, 1, 2]];
   }
 
   {
@@ -31,9 +56,8 @@
   }
 </script>
 
-<button on:click={() => showAll()}>
-  Show All!
-</button>
+<button on:click={() => showAll()}> Show All! </button>
+<button on:click={() => load()}> Load ! </button>
 <container class="tw-flex tw-justify-around tw-mb-4">
   <button
     on:click={() => modToggle(1)}
@@ -77,11 +101,21 @@
     bind:heredity
   />
 {:else if modNum == 3}
-  <DDM_Condition
+  <DDM_ConditionMenu
     bind:inputResult
     bind:inputButtonId
     bind:buttonX
     bind:buttonY
     bind:heredity
+    bind:condition
+  />
+  {:else if modNum == 4}
+  <DDM_CompileMenu
+    bind:inputResult
+    bind:inputButtonId
+    bind:buttonX
+    bind:buttonY
+    bind:heredity
+    bind:condition
   />
 {/if}

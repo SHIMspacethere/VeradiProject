@@ -117,7 +117,7 @@
       </div>
     {/if}
   </div>
-  <div class="tw-block tw-p-5">
+  <div class="tw-block tw-p-5 tw-m-3 tw-bg-white">
     {#each Array(inputButtonId.length) as _, intX}
       <div class="tw-flex">
         {#each Array(inputButtonId[0].length) as _, intY}

@@ -7,12 +7,12 @@
   export let buttonX;
   export let buttonY;
   export let heredity;
+  export let condition;
 
   let isClicked = 0;
   let treeStyle;
 
   function clickSet(i) {
-    console.log(i);
     isClicked = 1;
     if (isClicked == 1) {
       treeStyle = "border: 1px solid red;";
@@ -29,6 +29,7 @@
       bind:inputButtonId
       clickTree={clickSet(1)}
       bind:treeStyle
+      bind:condition
     />
   </div>
   <div class="tw-flex-1">

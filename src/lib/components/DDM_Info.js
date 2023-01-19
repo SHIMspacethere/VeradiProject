@@ -68,6 +68,10 @@ export class InputButtonSet {
   }
 }
 
+export class conditionClass {
+  
+}
+
 export const VP_DDM_INPUTCHECKS = [
   {
     id: 0,
