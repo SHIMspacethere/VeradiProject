@@ -1,5 +1,5 @@
 <script>
-	import DDM_HiddenContext_Trait from './context/DDM_HiddenContext_Trait.svelte';
+	import DDM_HiddenContext_Trait from './contexts/DDM_HiddenContext_Trait.svelte';
   import DDM_MiniTree from "./DDM_MiniTree.svelte";
   export let heredity;
   export let inputButtonId;

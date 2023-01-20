@@ -24,6 +24,18 @@
     console.log(heredity);
   }
 
+  function onKeyDown(e) {
+    if (e.keyCode == 49 && e.shiftKey) 
+      modNum = 1;
+    else if (e.keyCode == 50 && e.shiftKey)
+      modNum = 2; 
+    else if (e.keyCode == 51 && e.shiftKey)
+      modNum = 3;
+    else if (e.keyCode == 52 && e.shiftKey)
+      modNum = 4;
+    else {}
+  }
+
   function load() {
     inputResult = [
       [
@@ -119,3 +131,6 @@
     bind:condition
   />
 {/if}
+
+
+<svelte:window on:keydown|preventDefault={onKeyDown} />
