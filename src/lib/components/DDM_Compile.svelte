@@ -1,5 +1,5 @@
 <script>
-  import { drHeredity } from "./settings/DDM_Setting_Heredity.js";
+  import { drHeredity, getGene, getPermutations } from "./settings/DDM_Setting_Heredity.js";
 
   export let inputResult;
   export let inputButtonId;
@@ -9,9 +9,10 @@
   export let condition;
   export let result = [];
 
-  let heredityClass = [];
-  export let allCases = [];
   let ableGene = [];
+  let tempCases;
+  let heredityClass = [];
+  export let allCases;
   // let ableGene2 = [
   //   [
   //     [["A"], ["a"]],
@@ -30,48 +31,71 @@
   function runCompile() {
     reset();
     setHeredityClass();
-    drDominant(0);
-    geneCalc([]);
-    console.log(ableGene);
+    for (let i=0; i < heredityClass.length; i++) {
+      for (let j=0; j < heredityClass[i].length; j++) {
+        tempCases=[];
+        drDominant(i, j);
+        ableGene=heredityClass[i][j].array;
+        console.log(heredityClass[i][j].array);
+        geneCalc([]);
+        heredityClass[i][j].setCase(tempCases.map((v) => [...v]));
+        allCases.push(heredityClass[i][j]);
+      }
+    }
+    allCases = allCases;
     console.log(allCases);
   }
 
-  function drDominant(i) {
+  function drDominant(i, j) {
     let gene = [];
-    for (let j = 0; j < heredityClass[i].gene.length; j++)
+    for (let k = 0; k < heredityClass[i][j].rank.length; k++)
     {
-      gene.push(heredityClass[i].gene[j]);
+      gene.push(heredityClass[i][j].rank[k]);
     }
+    let maxExpression = 2;
     let count;
     let tempArray = [];
-    for (let j = 0; j < heredity[i+3].length; j++) {
+    for (let k = 0; k < heredity[i+3].length; k++) {
       tempArray.push([]);
-      if (heredity[i+3][j] == 1)
+      count = tempArray[k].length;
+      if (heredity[i+3][k] == heredityClass[i][j].expression[0])
       {
-        count = tempArray[j].length;
-        tempArray[j].push([[gene[1]], [gene[1]]]);
+        tempArray[k].push([[gene[0]], [gene[0]]]);
+        tempArray[k].push([[gene[0]], [gene[1]]]);
       }
-      else if (heredity[i+3][j] == 2)
+      else if (heredity[i+3][k] == heredityClass[i][j].expression[1])
       {
-        count = tempArray[j].length;
-        tempArray[j].push([[gene[0]], [gene[0]]]);
-        tempArray[j].push([[gene[0]], [gene[1]]]);
+        tempArray[k].push([[gene[1]], [gene[1]]]);
       }
-      else {}
+      else {
+        tempArray[k].push([[gene[0]], [gene[0]]]);
+        tempArray[k].push([[gene[0]], [gene[1]]]);
+        tempArray[k].push([[gene[1]], [gene[1]]]);
+      }
     }
-    ableGene = tempArray.map((v) => [...v]);
+    heredityClass[i][j].setArray(tempArray.map((v) => [...v]));
   }
 
   function reset() {
     while (heredityClass.length > 0) {
       heredityClass.pop();
     }
+    result = [];
     allCases = [];
   }
 
   function setHeredityClass() {
+    let chromosome, expression, rank;
     for (let i = 0; i < heredity[0].length; i++) {
-      heredityClass.push(new drHeredity(heredity[0][i], heredity[2][i]));
+      chromosome = 1;
+      expression = [[1, 2], [2, 1]];
+      rank = getPermutations(heredity[2][i], heredity[2][i].length);
+      heredityClass.push([]);
+      for (let j = 0; j < expression.length; j++) {
+        for (let k = 0; k < rank.length; k++) {
+          heredityClass[i].push(new drHeredity(heredity[0][i], heredity[2][i], 1, expression[j], rank[k]));
+        }
+      }
     }
   }
 
@@ -88,10 +112,11 @@
       for (let i = 0; i < ableGene[count].length; i++) {
         tempArray[i] = arr.map((v) => [...v]);
         tempArray[i].push(ableGene[count][i]);
-        allCases.push(tempArray[i].map((v) => [...v]));
+        tempCases.push(tempArray[i].map((v) => [...v]));
       }
     }
   }
+
 </script>
 
 <button class="tw-text-2xl" on:click={() => runCompile()}>Compile</button>

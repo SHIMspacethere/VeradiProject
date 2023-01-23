@@ -22,7 +22,6 @@
     for (let i = 0; i < inputResult[0].length; i++) {
       tempArray[tempArray.length-1].push(1);
     }
-    console.log(2);
     tempArray = tempArray;
     selectHeredityName(count);
     tempHeredityName = "";
@@ -58,7 +57,6 @@
   <div class="tw-text-2xl tw-m-2">
     <input
       class="tw-w-24"
-      type="text"
       minlength="1"
       maxlength="4"
       required

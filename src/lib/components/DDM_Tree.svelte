@@ -4,6 +4,7 @@
   export let inputResult;
   export let inputButtonId;
   export let heredity;
+  export let isBusy = false;
   let _heredityClass = [];
   let _heredityTrait = [];
   let selectedHeredity = null;
@@ -27,7 +28,7 @@
     selectedHeredity = i;
     updateAll();
     updateTrait(i);
-    heredity=heredity;
+    heredity = heredity;
   }
 
   function clickTrait(i) {
@@ -36,13 +37,12 @@
     }
     _heredityTrait[i] = "tw-text-red-500";
     heredity[1][selectedHeredity] = heredityTrait[i];
-    heredity=heredity;
+    heredity = heredity;
   }
 
   function updateExpression(i, j) {
     if (selectedHeredity == null) return;
     let a = 0;
-    console.log(inputResult[0][a][0]);
     while (i != inputResult[0][a][0] || j != inputResult[0][a][1]) {
       if (a > inputResult[0].length) return;
       a++;
@@ -104,7 +104,7 @@
         </button>
       {/each}
     </div>
-    {#if selectedHeredity != null}
+    {#if selectedHeredity != null && isBusy == false}
       <div>
         {#each heredityTrait as item, i}
           <button
@@ -122,22 +122,38 @@
       <div class="tw-flex">
         {#each Array(inputButtonId[0].length) as _, intY}
           {#if inputButtonId[intX][intY] == 1 || inputButtonId[intX][intY] == 2}
-            <button
-              id="button[{intX}][{intY}]"
-              on:click={() => {
-                updateExpression(intX, intY);
-              }}
-              class="tw-px-0 tw-justify-center tw-align-middle tw-relative"
-            >
-              <img
-                id="buttonImg[{intX}][{intY}]"
-                src={VP_DDM_INPUTCHECKS[inputButtonId[intX][intY]].img2}
-                alt="button[{intX}][{intY}]"
-              />
-              <div class="tw-absolute tw-justify-center tw-text-center">
-                {countPerson()}
+            {#if isBusy == true}
+              <div
+                id="button[{intX}][{intY}]"
+                class="tw-px-0 tw-justify-center tw-align-middle tw-relative"
+              >
+                <img
+                  id="buttonImg[{intX}][{intY}]"
+                  src={VP_DDM_INPUTCHECKS[inputButtonId[intX][intY]].img2}
+                  alt="button[{intX}][{intY}]"
+                />
+                <div class="tw-absolute tw-justify-center tw-text-center">
+                  {countPerson()}
+                </div>
               </div>
-            </button>
+            {:else}
+              <button
+                id="button[{intX}][{intY}]"
+                on:click={() => {
+                  updateExpression(intX, intY);
+                }}
+                class="tw-px-0 tw-justify-center tw-align-middle tw-relative"
+              >
+                <img
+                  id="buttonImg[{intX}][{intY}]"
+                  src={VP_DDM_INPUTCHECKS[inputButtonId[intX][intY]].img2}
+                  alt="button[{intX}][{intY}]"
+                />
+                <div class="tw-absolute tw-justify-center tw-text-center">
+                  {countPerson()}
+                </div>
+              </button>
+            {/if}
           {:else}
             <div id="button[{intX}][{intY}]" class="tw-flex tw-px-0">
               <img

@@ -1,9 +1,14 @@
+import { get } from "svelte/store";
+
 export class drHeredity {
-  constructor(name, gene) {
+  constructor(name, gene, chromosome, expression, rank) {
     this.name = name;
     this.gene = gene;
-    this.dominant = [];
-    this.recessive = [];
+    this.chromosome = chromosome;
+    this.expression = expression;
+    this.rank = rank;
+    this.array = [];
+    this.case = [];
   }
   set name(n) {
     this._name = n;
@@ -11,11 +16,20 @@ export class drHeredity {
   set gene(g) {
     this._gene = g;
   }
-  set dominant(a) {
-    this._dominant = a; 
+  set chromosome(i) {
+    this._chromosome = i;
   }
-  set recessive(a) {
-    this._recessive = a;
+  set expression(e) {
+    this._expression = e;
+  }
+  set rank(a) {
+    this._rank = a; 
+  }
+  set array(a) {
+    this._array = a;
+  }
+  set case(a) {
+    this._case = a;
   }
   get name() {
     return this._name;
@@ -23,10 +37,43 @@ export class drHeredity {
   get gene() {
     return this._gene;
   }
-  get dominant() {
-    return this._dominant;
+  get chromosome() {
+    return this._chromosome;
   }
-  get recessive() {
-    return this._recessive;
+  get expression() {
+    return this._expression;
+  }
+  get rank() {
+    return this._rank;
+  }
+  get array() {
+    return this._array;
+  }
+  get case() {
+    return this._case;
+  }
+  setArray(arr) {
+    this.array=arr;
+  }
+  setCase(arr) {
+    this.case=arr;
   }
 }
+
+export function getGene(arr, selectNumber, result) {
+  result = [];
+};
+
+export function getPermutations(arr, selectNumber) {
+  const results = [];
+  if (selectNumber === 1) return arr.map((value) => [value]); // 1개씩 택할 때, 바로 모든 배열의 원소 return
+
+  arr.forEach((fixed, index, origin) => {
+    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)]; // 해당하는 fixed를 제외한 나머지 배열
+    const permutations = getPermutations(rest, selectNumber - 1); // 나머지에 대해 순열을 구한다.
+    const attached = permutations.map((permutation) => [fixed, ...permutation]); // 돌아온 순열에 대해 떼 놓은(fixed) 값 붙이기
+    results.push(...attached); // 배열 spread syntax 로 모두다 push
+  });
+
+  return results; // 결과 담긴 results return
+};
