@@ -51,7 +51,8 @@
       for (let j=0; j<heredityClass[i].length; j++)
       {
         arr.push(heredityClass[i][j]);
-        getSquare(arr, i+1);
+        getSquare([...arr], i+1);
+        arr.pop();
       }
     }
     else {

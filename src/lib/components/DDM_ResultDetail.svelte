@@ -22,28 +22,26 @@
   {#if selectedI == null}
     none!
   {:else}
+    {#each result[selectedI] as item}
     <div>
-      {result[selectedI].chromosome}번 염색체 -
-      {result[selectedI].name} :
-      {#if result[selectedI].expression[0] == 1}
+      {item.chromosome}번 염색체 -
+      {item.name} :
+      {#if item.expression[0] == 1}
         열성
-      {:else if result[selectedI].expression[0] == 2}
+      {:else if item.expression[0] == 2}
         우성
       {/if}
       (
-      {result[selectedI].rank[0]} > {result[selectedI].rank[1]}
+      {item.rank[0]} > {item.rank[1]}
       )
     </div>
+    {/each}
   {/if}
   <div class="logBar tw-py-1" />
   {#if selectedI == null}
     none!
   {:else}
-    {#each result[selectedI].case[selectedJ] as item, i}
-      <div>
-        {i + 1}. {item}
-      </div>
-    {/each}
+
   {/if}
 </div>
 
