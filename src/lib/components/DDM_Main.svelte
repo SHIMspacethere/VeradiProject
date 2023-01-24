@@ -1,5 +1,5 @@
 <script>
-	import DDM_CompileMenu from './DDM_CompileMenu.svelte';
+  import DDM_CompileMenu from "./DDM_CompileMenu.svelte";
   import DDM_ConditionMenu from "$lib/components/DDM_ConditionMenu.svelte";
   import DDM_DefaultSettings from "$lib/components/DDM_DefaultSettings.svelte";
   import DDM_InputButtonMenu from "$lib/components/DDM_InputButtonMenu.svelte";
@@ -16,7 +16,7 @@
   let compileResult = [];
   let buttonX = 7;
   let buttonY = 10;
-  let condition= [];
+  let condition = [];
 
   function showAll() {
     console.log(inputResult);
@@ -25,15 +25,12 @@
   }
 
   function onKeyDown(e) {
-    if (e.keyCode == 49 && e.shiftKey) 
-      modNum = 1;
-    else if (e.keyCode == 50 && e.shiftKey)
-      modNum = 2; 
-    else if (e.keyCode == 51 && e.shiftKey)
-      modNum = 3;
-    else if (e.keyCode == 52 && e.shiftKey)
-      modNum = 4;
-    else {}
+    if (e.keyCode == 49 && e.shiftKey) modNum = 1;
+    else if (e.keyCode == 50 && e.shiftKey) modNum = 2;
+    else if (e.keyCode == 51 && e.shiftKey) modNum = 3;
+    else if (e.keyCode == 52 && e.shiftKey) modNum = 4;
+    else {
+    }
   }
 
   function load() {
@@ -55,7 +52,16 @@
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    heredity = [["(가)"], ["우열"], [["A", "a"]], [1, 2, 1, 2]];
+    heredity = [
+      ["(가)", "(나)"],
+      ["우열", "우열"],
+      [
+        ["A", "a"],
+        ["B", "b"],
+      ],
+      [1, 2, 1, 2],
+      [2, 1, 2, 1],
+    ];
   }
 
   {
@@ -121,7 +127,7 @@
     bind:heredity
     bind:condition
   />
-  {:else if modNum == 4}
+{:else if modNum == 4}
   <DDM_CompileMenu
     bind:inputResult
     bind:inputButtonId
@@ -131,6 +137,5 @@
     bind:condition
   />
 {/if}
-
 
 <svelte:window on:keydown|preventDefault={onKeyDown} />

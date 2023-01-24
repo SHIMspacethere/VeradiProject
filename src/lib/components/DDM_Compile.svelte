@@ -36,14 +36,27 @@
         tempCases=[];
         drDominant(i, j);
         ableGene=heredityClass[i][j].array;
-        console.log(heredityClass[i][j].array);
         geneCalc([]);
         heredityClass[i][j].setCase(tempCases.map((v) => [...v]));
-        allCases.push(heredityClass[i][j]);
       }
     }
+    getSquare([], 0);
     allCases = allCases;
     console.log(allCases);
+  }
+
+  function getSquare(arr, i) {
+    if (heredityClass.length > i)
+    {
+      for (let j=0; j<heredityClass[i].length; j++)
+      {
+        arr.push(heredityClass[i][j]);
+        getSquare(arr, i+1);
+      }
+    }
+    else {
+      allCases.push([...arr]);
+    }
   }
 
   function drDominant(i, j) {
