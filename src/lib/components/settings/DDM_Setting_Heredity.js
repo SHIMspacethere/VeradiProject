@@ -58,6 +58,9 @@ export class drHeredity {
   setCase(arr) {
     this.case=arr;
   }
+  getCaseLength() {
+    return this.case.length
+  }
 }
 
 export function getGene(arr, selectNumber, result) {
