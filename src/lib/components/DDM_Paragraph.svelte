@@ -14,7 +14,12 @@
   }
 </script>
 
-<button class="tw-ml-2 tw-text-2xl" on:click={()=>SwitchIsHidden()}>[주석 제거] {isHidden}</button>
+<button class="tw-ml-2 tw-text-xl" on:click={()=>SwitchIsHidden()}>[주석 제거] : {isHidden}</button>
+<div class="tw-flex">
+  <button class="tw-flex-1 tw-text-xl tw-bg-slate-300">[추가]</button>
+  <button class="tw-flex-1 tw-text-xl tw-bg-slate-400">[제거]</button>
+  <button class="tw-flex-1 tw-text-xl tw-bg-green-300">[테이블]</button>
+</div>
 <div class="tw-overflow-hidden tw-bg-white">
   <div class="tw-px-3 tw-pt-3">
     1. 다음은 어떤 집안의 유전 형질 {heredity[0][0]}~{heredity[0][

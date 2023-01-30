@@ -13,8 +13,8 @@
   let treeStyle;
 
   function clickSet(i) {
-    isClicked = 1;
-    if (isClicked == 1) {
+    isClicked = 0;
+    if (isClicked == 0) {
       treeStyle = "border: 1px solid red;";
     } else {
       treeStyle = "";
@@ -27,13 +27,13 @@
     <DDM_Paragraph
       bind:heredity
       bind:inputButtonId
-      clickTree={clickSet(1)}
+      clickTree={clickSet(0)}
       bind:treeStyle
       bind:condition
     />
   </div>
   <div class="tw-flex-1">
-    {#if isClicked == 1}
+    {#if isClicked == 0}
       <DDM_Tree bind:inputButtonId bind:heredity bind:inputResult />
     {/if}
   </div>
