@@ -17,20 +17,6 @@
   let tempCases;
   let heredityClass = [];
   export let allCases;
-  // let ableGene2 = [
-  //   [
-  //     [["A"], ["a"]],
-  //     [["A"], ["A"]],
-  //   ],
-  //   [
-  //     [["B"], ["b"]],
-  //     [["b"], ["b"]],
-  //   ],
-  //   [
-  //     [["D"], ["D"]],
-  //     [["D"], ["d"]],
-  //   ]
-  // ];
 
   function runCompile() {
     reset();
@@ -38,7 +24,7 @@
     for (let i = 0; i < heredityClass.length; i++) {
       for (let j = 0; j < heredityClass[i].length; j++) {
         tempCases = [];
-        drDominant(i, j, 0);
+        drDominant(i, j, heredityClass[i][j].chromosome);
         ableGene = heredityClass[i][j].array;
         geneCalc([]);
         heredityClass[i][j].setCase(tempCases.map((v) => [...v]));
@@ -65,54 +51,42 @@
     for (let k = 0; k < heredityClass[i][j].rank.length; k++) {
       gene.push(heredityClass[i][j].rank[k]);
     }
-    let count;
-    let tempArray = [];
-    if (index == 0) {
-      // non-autosome (sex)
-      for (let k = 0; k < heredity[i + 3].length; k++) {
-        tempArray.push([]);
-        count = tempArray[k].length;
-        if (inputResult[0][k][2] == 1) {
-          if (heredity[i + 3][k] == heredityClass[i][j].expression[0]) {
-            tempArray[k].push([[gene[0]], ["Y"]]);
-          } else if (heredity[i + 3][k] == heredityClass[i][j].expression[1]) {
-            tempArray[k].push([[gene[1]], ["Y"]]);
-          } else {
-            tempArray[k].push([[gene[0]], ["Y"]]);
-            tempArray[k].push([[gene[1]], ["Y"]]);
-          }
-        } else if (inputResult[0][k][2] == 2) {
-          if (heredity[i + 3][k] == heredityClass[i][j].expression[0]) {
-            tempArray[k].push([[gene[0]], [gene[0]]]);
-            tempArray[k].push([[gene[0]], [gene[1]]]);
-          } else if (heredity[i + 3][k] == heredityClass[i][j].expression[1]) {
-            tempArray[k].push([[gene[1]], [gene[1]]]);
-          } else {
-            tempArray[k].push([[gene[0]], [gene[0]]]);
-            tempArray[k].push([[gene[0]], [gene[1]]]);
-            tempArray[k].push([[gene[1]], [gene[1]]]);
-          }
-        } else {
-        }
-      }
-    } else {
-      // autosome
-      for (let k = 0; k < heredity[i + 3].length; k++) {
-        tempArray.push([]);
-        count = tempArray[k].length;
-        if (heredity[i + 3][k] == heredityClass[i][j].expression[0]) {
-          tempArray[k].push([[gene[0]], [gene[0]]]);
-          tempArray[k].push([[gene[0]], [gene[1]]]);
-        } else if (heredity[i + 3][k] == heredityClass[i][j].expression[1]) {
-          tempArray[k].push([[gene[1]], [gene[1]]]);
-        } else {
-          tempArray[k].push([[gene[0]], [gene[0]]]);
-          tempArray[k].push([[gene[0]], [gene[1]]]);
-          tempArray[k].push([[gene[1]], [gene[1]]]);
-        }
+    let isExist = false;
+    for (let k = 0; k < i; k++) {
+      if (heredityClass[k][0].chromosome == index) {
+        isExist = true;
       }
     }
-
+    let count;
+    let tempArray = [];
+      // non-autosome (XY)
+      for (let k = 0; k < heredity[i + 3].length; k++) {
+        tempArray.push([]);
+        count = tempArray[k].length;
+        if (inputResult[0][k][2] == 1 && index == 0) {
+          if (heredity[i + 3][k] == heredityClass[i][j].expression[0]) {
+            tempArray[k].push([[gene[0]], ["Y"]]);
+          } else if (heredity[i + 3][k] == heredityClass[i][j].expression[1]) {
+            tempArray[k].push([[gene[1]], ["Y"]]);
+          } else {
+            tempArray[k].push([[gene[0]], ["Y"]]);
+            tempArray[k].push([[gene[1]], ["Y"]]);
+          }
+        } else { // autosome
+          if (heredity[i + 3][k] == heredityClass[i][j].expression[0]) {
+            tempArray[k].push([[gene[0]], [gene[0]]]);
+            tempArray[k].push([[gene[0]], [gene[1]]]);
+            if (isExist == true) tempArray[k].push([[gene[1]], [gene[0]]]);
+          } else if (heredity[i + 3][k] == heredityClass[i][j].expression[1]) {
+            tempArray[k].push([[gene[1]], [gene[1]]]);
+          } else {
+            tempArray[k].push([[gene[0]], [gene[0]]]);
+            tempArray[k].push([[gene[0]], [gene[1]]]);
+            tempArray[k].push([[gene[1]], [gene[1]]]);
+            if (isExist == true) tempArray[k].push([[gene[1]], [gene[0]]]);
+          }
+        }
+      }
     heredityClass[i][j].setArray(tempArray.map((v) => [...v]));
   }
 
