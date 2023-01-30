@@ -1,6 +1,5 @@
 <script>
-  import DDM_GeneTree from "./DDM_GeneTree.svelte";
-  import { each } from "svelte/internal";
+  import DDM_GeneTree from "./DDM_GeneTree.svelte";;
   import DDM_Tree from "./DDM_Tree.svelte";
 
   export let heredity;

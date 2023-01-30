@@ -1,4 +1,4 @@
-import { get } from "svelte/store";
+
 
 export class drHeredity {
   constructor(name, gene, chromosome, expression, rank) {
@@ -60,6 +60,9 @@ export class drHeredity {
   }
   getCaseLength() {
     return this.case.length
+  }
+  deleteCase(i) {
+    this.case.splice(i, 1);
   }
 }
 
