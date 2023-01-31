@@ -6,19 +6,30 @@
   export let treeStyle;
   export function clickTree() {}
   export let condition;
+  export let isCMenuClicked = false;
+  export let isTableClicked = false;
 
   let isHidden = false;
   
+  function clickCMenu() {
+    isCMenuClicked = isCMenuClicked ? false : true;
+  }
+
+  function clickTable() {
+    isTableClicked = isTableClicked ? false : true;
+  }
+
   function SwitchIsHidden() {
     isHidden = isHidden ? false : true;
   }
 </script>
 
+
 <button class="tw-ml-2 tw-text-xl" on:click={()=>SwitchIsHidden()}>[주석 제거] : {isHidden}</button>
 <div class="tw-flex">
-  <button class="tw-flex-1 tw-text-xl tw-bg-slate-300">[추가]</button>
+  <button class="tw-flex-1 tw-text-xl tw-bg-slate-300" on:click={()=>clickCMenu()}>[추가]</button>
   <button class="tw-flex-1 tw-text-xl tw-bg-slate-400">[제거]</button>
-  <button class="tw-flex-1 tw-text-xl tw-bg-green-300">[테이블]</button>
+  <button class="tw-flex-1 tw-text-xl tw-bg-green-300" on:click={()=>clickTable()}>[테이블]</button>
 </div>
 <div class="tw-overflow-hidden tw-bg-white">
   <div class="tw-px-3 tw-pt-3">
