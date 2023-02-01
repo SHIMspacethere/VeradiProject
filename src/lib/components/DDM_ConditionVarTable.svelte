@@ -46,6 +46,7 @@
       chosenType = null;
     } else {
       chosenVar = varList[i];
+      resetTypeStyle();
       for (let j=0; j<usedVar.length; j++)
       {
         if (usedVar[j].id == varList[i]) {
@@ -76,7 +77,13 @@
         }
       }
     if (isExist == true ) {
-      
+
+    }
+  }
+
+  function resetTypeStyle() {
+    for (let j = 0; j < typeList.length; j++) {
+      _typeStyle[j] = "tw-bg-white";
     }
   }
 </script>
@@ -122,7 +129,7 @@
         </div>
         <div class="tw-text-2xl">
           {#each typeList as item, i}
-            <button class="tw-mx-3" on:click={()=>selectType(i)}>
+            <button class="tw-mx-3 {_typeStyle[i]}" on:click={()=>selectType(i)}>
               {item.name}
             </button>
           {/each}
