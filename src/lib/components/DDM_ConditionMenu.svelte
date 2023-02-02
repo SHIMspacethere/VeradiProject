@@ -10,6 +10,7 @@
   export let buttonY;
   export let heredity;
   export let condition;
+  export let usedVar;
 
   let isClicked = 0;
   let treeStyle;
@@ -32,7 +33,7 @@
   <DDM_ConditionTable bind:isCMenuClicked bind:condition />
 {/if}
 {#if isTableClicked == true}
-  <DDM_ConditionVarTable bind:isTableClicked bind:condition/>
+  <DDM_ConditionVarTable bind:isTableClicked bind:condition bind:usedVar/>
 {/if}
 <container class="tw-flex">
   <div class="tw-flex-1">
@@ -52,3 +53,4 @@
     {/if}
   </div>
 </container>
+

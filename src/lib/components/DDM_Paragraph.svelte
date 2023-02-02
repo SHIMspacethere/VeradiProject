@@ -10,7 +10,31 @@
   export let isTableClicked = false;
 
   let isHidden = false;
+
+  const buttonList = [
+    {name: "추가", style: "tw-bg-slate-300", key: "Q", keyCode: 81},
+    {name: "제거", style: "tw-bg-slate-400", key: "W", keyCode: 87},
+    {name: "테이블", style: "tw-bg-green-300", key: "E", keyCode: 69},
+  ]
+
+  function onKeyDown(e) {
+    if (!isCMenuClicked && !isTableClicked) {
+      for (let i = 0; i < buttonList.length; i++) {
+        if (e.keyCode == buttonList[i].keyCode) {
+          clickButton(i);
+          break;
+        }
+      }
+    }
+  }
   
+  function clickButton(i) {
+    if (i == 0) clickCMenu();
+    else if (i == 1) clickTable();
+    else if (i == 2) clickTable();
+    else {}
+  }
+
   function clickCMenu() {
     isCMenuClicked = isCMenuClicked ? false : true;
   }
@@ -27,9 +51,9 @@
 
 <button class="tw-ml-2 tw-text-xl" on:click={()=>SwitchIsHidden()}>[주석 제거] : {isHidden}</button>
 <div class="tw-flex">
-  <button class="tw-flex-1 tw-text-xl tw-bg-slate-300" on:click={()=>clickCMenu()}>[추가]</button>
-  <button class="tw-flex-1 tw-text-xl tw-bg-slate-400">[제거]</button>
-  <button class="tw-flex-1 tw-text-xl tw-bg-green-300" on:click={()=>clickTable()}>[테이블]</button>
+  {#each buttonList as item, i}
+    <button class="tw-flex-1 tw-text-xl {item.style}" on:click={()=>clickButton(i)}>[{item.name}({item.key})]</button>
+  {/each}
 </div>
 <div class="tw-overflow-hidden tw-bg-white">
   <div class="tw-px-3 tw-pt-3">
@@ -69,6 +93,8 @@
     </div>
   </div>
 </div>
+
+<svelte:window on:keydown|preventDefault={onKeyDown} />
 
 <style>
   .card {

@@ -9,23 +9,33 @@
   export let usedVar = [];
   let _typeStyle = [];
   let _varStyle = [];
+  let chosenIndex = null;
   let chosenVar = null;
   let chosenType = null;
 
   const typeList = [
-    { id: null, name: "없음" },
-    { id: "gene", name: "유전자" },
-    { id: "man", name: "구성원" },
-    { id: "chromosome", name: "염색체" },
-    { id: "dnaValue", name: "DNA상대량" },
-    { id: "value", name: "값" },
+    { id: null, name: "없음", key: 1, keyCode: 49 },
+    { id: "gene", name: "유전자", key: 2, keyCode: 50 },
+    { id: "man", name: "구성원", key: 3, keyCode: 51 },
+    { id: "chromosome", name: "염색체", key: 4, keyCode: 52 },
+    { id: "dnaValue", name: "DNA상대량", key: 5, keyCode: 53 },
+    { id: "value", name: "값", key: 6, keyCode: 54 },
   ];
 
-  function closeButton() {
-    isTableClicked = false;
+  function onKeyDown(e) {
+    if (e.keyCode == 27) isTableClicked = false;
+    else if (chosenVar != null) {
+      for (let i = 0; i < typeList.length; i++) {
+        if (e.keyCode == typeList[i].keyCode) {
+          selectType(i);
+          break;
+        }
+      }
+    } else {
+    }
   }
 
-  function clickButton() {
+  function closeButton() {
     isTableClicked = false;
   }
 
@@ -33,28 +43,32 @@
     // initial
     for (let i = 0; i < varList.length; i++) _varStyle.push("");
     for (let i = 0; i < typeList.length; i++) _typeStyle.push("");
+    for (let j = 0; j < usedVar.length; j++)
+      _varStyle[usedVar[j].index] = "tw-bg-orange-300";
   }
 
   function selectVar(i) {
+    chosenType = null;
     for (let j = 0; j < varList.length; j++) {
       _varStyle[j] = "tw-bg-white";
     }
     if (varList[i] == chosenVar) {
-      if (chosenType != null)
-        _varStyle[i] = "tw-bg-orange-300";
+      if (chosenType != null) _varStyle[i] = "tw-bg-orange-300";
+      chosenIndex = null;
       chosenVar = null;
       chosenType = null;
+      for (let j = 0; j < usedVar.length; j++) {
+        _varStyle[usedVar[j].index] = "tw-bg-orange-300";
+      }
     } else {
       chosenVar = varList[i];
+      chosenIndex = i;
       resetTypeStyle();
-      for (let j=0; j<usedVar.length; j++)
-      {
+      for (let j = 0; j < usedVar.length; j++) {
         if (usedVar[j].id == varList[i]) {
           chosenType = usedVar[j].type;
-          for (let k=0; k<typeList.length; k++)
-          {
-            if (typeList[k].id == chosenType)
-              _typeStyle[k] = "tw-bg-red-300";
+          for (let k = 0; k < typeList.length; k++) {
+            if (typeList[k].id == chosenType) _typeStyle[k] = "tw-bg-red-300";
           }
         }
         _varStyle[usedVar[j].index] = "tw-bg-orange-300";
@@ -64,21 +78,54 @@
   }
 
   function selectType(i) {
-    let isExist = false;
+    let classIndex = null;
+    chosenType = typeList[i].id;
     for (let j = 0; j < typeList.length; j++) {
       _typeStyle[j] = "tw-bg-white";
     }
     _typeStyle[i] = "tw-bg-red-300";
-    for (let j=0; j < usedVar.length; j++)
-      {
-        if(usedVar[j].id == chosenVar)
-        {
-          isExist = true;
-        }
+    for (let j = 0; j < usedVar.length; j++) {
+      if (usedVar[j].id == chosenVar) {
+        classIndex = j;
       }
-    if (isExist == true ) {
-
     }
+    // non-created
+    if (classIndex == null) {
+      if (chosenType != null) createClass(i);
+    }
+    // need-creation
+    else {
+      if (chosenType != typeList[i].id) {
+        modifyClassType(classIndex);
+      } else if (chosenType == null) {
+        removeClass(classIndex);
+        classIndex = null;
+      } else {
+      }
+    }
+  }
+
+  function createClass(typeIndex) {
+    usedVar.push(
+      new variableClass(
+        chosenVar,
+        chosenIndex,
+        chosenType,
+        typeList[typeIndex].name
+      )
+    );
+    usedVar = usedVar;
+  }
+
+  function modifyClassType(i, typeIndex) {
+    usedVar[i].type(chosenType);
+    usedVar[i].name(typeList[typeIndex].name);
+    usedVar = usedVar;
+  }
+
+  function removeClass(i) {
+    usedVar.splice(i, 1);
+    usedVar = usedVar;
   }
 
   function resetTypeStyle() {
@@ -129,27 +176,33 @@
         </div>
         <div class="tw-text-2xl">
           {#each typeList as item, i}
-            <button class="tw-mx-3 {_typeStyle[i]}" on:click={()=>selectType(i)}>
-              {item.name}
+            <button
+              class="tw-mx-3 {_typeStyle[i]}"
+              on:click={() => selectType(i)}
+            >
+              {item.name}({item.key})
             </button>
           {/each}
         </div>
       {:else}
-      <div class="bar tw-text-2xl tw-mb-2">
-        사용된 log
-      </div>
-      <div class="tw-overflow-y-auto tw-h-36">
-        {#each usedVar as item, i}
-          <div class="logBar tw-mb-1 tw-py-0.5">
-            [{i+1}]
-            <span>1</span>
-          </div>
-        {/each}
-      </div>
+        <div class="bar tw-text-2xl tw-mb-2">사용된 log</div>
+        <div class="tw-overflow-y-auto tw-h-36">
+          {#each usedVar as item, i}
+            <div class="logBar tw-mb-1 tw-py-0.5">
+              [{i + 1}]
+              <span>{item.id}</span>
+              :
+              <span>{item.name}</span>
+              <span>({item.type})</span>
+            </div>
+          {/each}
+        </div>
       {/if}
     </div>
   </card>
 </div>
+
+<svelte:window on:keydown|preventDefault={onKeyDown} />
 
 <style>
   .bar {

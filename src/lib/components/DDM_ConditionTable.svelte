@@ -6,6 +6,10 @@
   export let isTableClicked = false;
   export let condition;
 
+  function onKeyDown(e) {
+    if (e.keyCode == 27) closeButton();
+  }
+
   function closeButton() {
     isCMenuClicked = false;
   }
@@ -76,6 +80,8 @@
     </div>
   </card>
 </div>
+
+<svelte:window on:keydown|preventDefault={onKeyDown} />
 
 <style>
   .bar {

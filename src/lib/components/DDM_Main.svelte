@@ -17,6 +17,7 @@
   let buttonX = 7;
   let buttonY = 10;
   let condition = [];
+  let usedVar = [];
 
   function showAll() {
     console.log(inputResult);
@@ -131,6 +132,7 @@
     bind:buttonY
     bind:heredity
     bind:condition
+    bind:usedVar
   />
 {:else if modNum == 4}
   <DDM_CompileMenu
