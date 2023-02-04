@@ -1,10 +1,11 @@
 <script>
+  import { condition_dominance } from "./conditions/DDM_ConditionClass.js";
   import Icon from "@iconify/svelte";
   export let onClick = () => {};
   export let bgColor = "#cccccc";
   export let isCMenuClicked = false;
   export let isTableClicked = false;
-  export let condition;
+  export let condition = [];
 
   function onKeyDown(e) {
     if (e.keyCode == 27) closeButton();
@@ -18,8 +19,20 @@
     isCMenuClicked = false;
   }
 
+  function selectCondition(i) {
+    condition.push(conditionList[i].class);
+    condition[0].setText();
+    console.log(condition[0].text);
+    closeButton();
+  }
+
   const conditionList = [
-    { id: "dominance", name: "우성 관계", ex: "A는 a에 대해 완전 우성이다." },
+    {
+      id: "dominance",
+      name: "우성 관계",
+      ex: "A는 a에 대해 완전 우성이다.",
+      class: new condition_dominance(),
+    },
     {
       id: "genePosition",
       name: "유전자 존재 위치 - 염색체",
@@ -67,7 +80,10 @@
     </div>
     <div class="tw-bg-white tw-p-3 tw-overflow-y-scroll">
       {#each conditionList as item, i}
-        <button class="tw-block tw-text-left tw-w-full tw-mt-2">
+        <button
+          class="tw-block tw-text-left tw-w-full tw-mt-2"
+          on:click={() => selectCondition(i)}
+        >
           <div class="tw-text-xl">
             [{item.name}]
           </div>

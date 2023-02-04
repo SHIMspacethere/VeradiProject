@@ -32,6 +32,7 @@
     }
     getSquare([], 0);
     allCases = allCases;
+    console.log(allCases);
   }
 
   function getSquare(arr, i) {
