@@ -21,9 +21,12 @@
 
   function selectCondition(i) {
     condition.push(conditionList[i].class);
-    condition[0].setText();
-    console.log(condition[0].text);
+    for(let j=0; j<condition.length; j++)
+    {
+      condition[j].setText();
+    }
     closeButton();
+    condition = condition;
   }
 
   const conditionList = [

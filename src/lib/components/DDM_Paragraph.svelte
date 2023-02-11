@@ -85,6 +85,17 @@
         <DDM_HiddenContext_Trait bind:heredity={heredity} />
       </div>
       {/if}
+      {#each condition as item, i}
+        <div style="margin-left: -1em;">
+          <button>
+            ○
+            {item.text}
+          </button>
+        </div>
+      {/each}
+      <div>
+
+      </div>
     </div>
     <div class="tw-w-72 sm:tw-w-96">
       <button on:click={() => clickTree()}>

@@ -33,7 +33,7 @@ export class condition_dominance {
   run(arr) {
     let geneRank = [this.gene1, this.gene2];
     let arrRank = [];
-    for (let i = 0; i < arr.length; i++) {ㅂ
+    for (let i = 0; i < arr.length; i++) {
       arrRank = arr[i][this.heredityIndex].rank;
       if (geneRank == arrRank)
         arr.splice(i, 1)
