@@ -4,10 +4,10 @@
   export let heredity;
   export let inputButtonId;
   export let treeStyle;
-  export function clickTree() {}
   export let condition;
   export let isCMenuClicked = false;
   export let isTableClicked = false;
+  export let isClicked;
 
   let isHidden = false;
 
@@ -28,15 +28,36 @@
     }
   }
   
+  function clickSet(i) {
+    while(treeStyle.length<condition.length+1)
+    {
+      treeStyle.push("");
+    }
+    isClicked = i;
+    for (let j = 0; j < treeStyle.length; j++) {
+      treeStyle[j] = "";
+    }
+    treeStyle[i] = "border: 1px solid red;";
+  }
+
   function clickButton(i) {
     if (i == 0) clickCMenu();
-    else if (i == 1) clickTable();
+    else if (i == 1) clickRemove();
     else if (i == 2) clickTable();
     else {}
   }
 
   function clickCMenu() {
     isCMenuClicked = isCMenuClicked ? false : true;
+  }
+
+  function clickRemove() {
+    if(isClicked == 0) return;
+    condition.splice(isClicked-1, 1);
+    treeStyle.splice(isClicked,1);
+    condition = condition;
+    isClicked = 0;
+    treeStyle[0] = "border: 1px solid red;";
   }
 
   function clickTable() {
@@ -46,6 +67,7 @@
   function SwitchIsHidden() {
     isHidden = isHidden ? false : true;
   }
+
 </script>
 
 
@@ -86,8 +108,8 @@
       </div>
       {/if}
       {#each condition as item, i}
-        <div style="margin-left: -1em;">
-          <button>
+        <div style="margin-left: -1em; {treeStyle[i+1]}">
+          <button on:click={() => clickSet(i+1)}>
             ○
             {item.text}
           </button>
@@ -98,8 +120,8 @@
       </div>
     </div>
     <div class="tw-w-72 sm:tw-w-96">
-      <button on:click={() => clickTree()}>
-        <DDM_MiniTree bind:inputButtonId _style={treeStyle} />
+      <button on:click={() => clickSet(0)}>
+        <DDM_MiniTree bind:inputButtonId _style={treeStyle[0]} />
       </button>
     </div>
   </div>

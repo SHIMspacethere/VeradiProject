@@ -21,6 +21,7 @@
       bind:inputButtonId
       bind:heredity
       bind:allCases={result}
+      bind:condition
     />
     <DDM_ResultLog bind:result bind:selectedI bind:selectedJ />
   </div>

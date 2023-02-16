@@ -33,6 +33,9 @@
     getSquare([], 0);
     allCases = allCases;
     console.log(allCases);
+    for(let i=0; i<condition.length; i++) {
+      condition[i].run(allCases);
+    }
   }
 
   function getSquare(arr, i) {
