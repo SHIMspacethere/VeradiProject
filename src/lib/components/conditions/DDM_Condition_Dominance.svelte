@@ -44,6 +44,7 @@
     condition[isClicked-1].heredityIndex=i;
     resetBlock();
     resetGene();
+    condition=condition;
   }
 
   function clickBlock(i) {

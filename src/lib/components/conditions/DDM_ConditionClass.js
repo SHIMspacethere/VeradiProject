@@ -1,5 +1,3 @@
-
-
 export class condition_dominance {
   constructor() {
     this.name = "dominance";
@@ -8,7 +6,7 @@ export class condition_dominance {
     this.gene1 = null;
     this.gene2 = null;
     this.text = null;
-    this.textEl = ["는 ", "에 대해 완전 우성이다."]
+    this.textEl = ["는 ", "에 대해 완전 우성이다."];
   }
   set heredityIndex(i) {
     this._heredityIndex = i;
@@ -35,23 +33,33 @@ export class condition_dominance {
     return this._text;
   }
   run(arr) {
+    let tempi = [];
     let geneRank = [this.gene1, this.gene2];
-    console.log(geneRank);
     let arrRank = [];
+    console.log(geneRank);
     for (let i = 0; i < arr.length; i++) {
       arrRank = arr[i][this.heredityIndex].rank;
-      for (let j = 0; j < geneRank.length; j++)
-      {
-        console.log(geneRank[j] == arrRank[j]);
-        if (geneRank[j] != arrRank[j])
-          arr.splice(i, 1)
+      if (JSON.stringify(arrRank)!=JSON.stringify(geneRank)) {
+        tempi.push(i);
+        // arr.splice(i, 1);
       }
       arrRank = [];
     }
+    removeArr(tempi, arr);
+    arr[1][1].case.splice(0,1);
+    console.log(arr[1][1].case);
   }
   setText() {
     let temp = "";
     temp = this.gene1 + this.textEl[0] + this.gene2 + this.textEl[1];
     this.text = temp;
+  }
+}
+
+function removeArr(temp, arr) {
+  while (temp.length != 0) {
+    let num = temp.pop();
+    console.log(num);
+    arr.splice(num, 1);
   }
 }
