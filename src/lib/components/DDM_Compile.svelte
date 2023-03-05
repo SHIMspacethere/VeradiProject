@@ -41,7 +41,9 @@
   function getSquare(arr, i) {
     if (heredityClass.length > i) {
       for (let j = 0; j < heredityClass[i].length; j++) {
-        arr.push(heredityClass[i][j]);
+        let c = new drHeredity();
+        c.objectCopy(heredityClass[i][j]);
+        arr.push(c);
         getSquare([...arr], i + 1);
         arr.pop();
       }

@@ -1,4 +1,6 @@
-
+function copy(arr) {
+  return JSON.parse(JSON.stringify(arr));
+}
 
 export class drHeredity {
   constructor(name, gene, chromosome, expression, rank) {
@@ -63,6 +65,15 @@ export class drHeredity {
   }
   deleteCase(i) {
     this.case.splice(i, 1);
+  }
+  objectCopy(arr) {
+    this.name = copy(arr.name);
+    this.gene = copy(arr.gene);
+    this.chromosome = copy(arr.chromosome);
+    this.expression = copy(arr.expression);
+    this.rank = copy(arr.rank);
+    this.array = copy(arr.array);
+    this.case = copy(arr.case);
   }
 }
 
