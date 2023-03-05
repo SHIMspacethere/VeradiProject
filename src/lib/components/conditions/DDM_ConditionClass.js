@@ -46,8 +46,6 @@ export class condition_dominance {
       arrRank = [];
     }
     removeArr(tempi, arr);
-    arr[1][1].case.splice(0, 1);
-    console.log(arr[1][1].case);
   }
   setText() {
     let temp = "";
@@ -59,7 +57,6 @@ export class condition_dominance {
 function removeArr(temp, arr) {
   while (temp.length != 0) {
     let num = temp.pop();
-    console.log(num);
     arr.splice(num, 1);
   }
 }
